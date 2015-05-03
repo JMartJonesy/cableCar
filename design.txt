@@ -1,0 +1,97 @@
++In playerData I added 
+	
+	-An 8x8 Matrix called board that will hold each tile(i filled in the powerstation slot with tiles when the board is made)
+	
+	-An integer called score which is not used yet but will keep the players score
+
+	-A dictionary of lists which hold entrance and exits(0-3)
+
+
++I created a new class called Tile with these attributes
+	
+	-A string which is what type of Tile(a-j,or ps for powerstation)
+	
+	-A list that will hold all the entrance and exits
+	
+	-An integer(0-3) for the tiles rotation
+
+
++In the Init file I changed a few things
+	
+	+In move_info()
+		
+		-Added code that logged the move data
+		
+		-Added the tile placed to playerData's board
+		
+		-Gave playerData a new tile
+	
+	+In tile_info_at_coordinates()
+		
+		-Made the return statement return the tile type(a-j or ps) and 	rotation of the tile at the given location on the board
+
+-------------------------------------------------------------------------------
+
+
+
+
+
+-------------------------------------------------------------------------------
+
+I plan on using the tracks list i added into Tile to traverse to each connecting tile to complete both 1b functions
+
+route_complete
+	loop through the tiles starting from a beginning station
+		current tile will be the tile lead to by the begginning track
+		keep goin through until either you hit an empty tile or hit another station
+
+route_score
+	loop through the tiles starting from a beginning station
+		current tile will be the tile lead to by the begginning track
+		adding one to a counter each time you move to another tile
+		keep goin through until either you hit an empty tile or hit another station
+		if you hit another station
+			return the counter
+			
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+history file:example_complete_start.data
+	
+	print tile_info_at_coordinates(playerData, 5, 2) == ('e', 0)
+        print tile_info_at_coordinates(playerData, 7, 7) == ('f', 0)
+        print tile_info_at_coordinates(playerData, 4, 4) == ('ps', 0)
+        
+        print route_complete(playerData,25) == True
+        print route_complete(playerData,12) == True
+        print route_complete(playerData,3) == True
+        
+        print route_score(playerData,12) == 12
+        print route_score(playerData,13) == 5
+        print route_score(playerData,3) == 18
+
+history file:example_incomplete1.data
+	
+	print tile_info_at_coordinates(playerData, 6, 0) == ('b', 1)
+        print tile_info_at_coordinates(playerData, 6, 4) == (None, None)
+        print tile_info_at_coordinates(playerData, 0, 6) == ('j', 1)
+        
+        print route_complete(playerData,25) == False
+        print route_complete(playerData,12) == False
+        print route_complete(playerData,3) == False
+        
+        print route_score(playerData,26) == 1
+        print route_score(playerData,12) == 0
+        print route_score(playerData,3) == 0
+
+history file:
+testage.data
+	print tile_info_at_coordinates(playerData, 0, 3) == ('c', 0)
+        print tile_info_at_coordinates(playerData, 3, 5) == (None, None)
+        print tile_info_at_coordinates(playerData, 3, 3) == ('ps', 0)
+        
+        print route_complete(playerData,25) == False
+        print route_complete(playerData,12) == False
+        print route_complete(playerData,3) == False
+        
+        print route_score(playerData,25) == 0
+        print route_score(playerData,12) == 0
+        print route_score(playerData,4) == 3
